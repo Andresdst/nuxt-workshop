@@ -23,6 +23,12 @@ export default {
   },
   //hacer consulta cuando el componente es creado
   created() {
+    // //async await
+
+    // let response = axios.get(`${env.endpoint}/albums`)
+    // this.albums = response.data;
+
+    //promesa
     axios.get(`${env.endpoint}/albums`).then(response => {
       this.albums = response.data;
     });

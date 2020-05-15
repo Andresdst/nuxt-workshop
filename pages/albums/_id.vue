@@ -1,13 +1,12 @@
 <template>
   <div class="container">
+    <header>
+      <nuxt-link to="/">Regresar</nuxt-link>
+    </header>
     <h1 class="title">{{ album.title }}</h1>
 
     <div class="columns is-multiline">
-      <div
-        class="column is-one-quarter"
-        v-for="photo in photos"
-        :key="photo.id"
-      >
+      <div class="column is-one-quarter" v-for="photo in photos" :key="photo.id">
         <img :src="photo.url" :alt="photo.title" />
       </div>
     </div>
@@ -25,24 +24,40 @@ export default {
   data() {
     return {
       album: {},
-      photos: [],
+      photos: []
     };
   },
-  created() {
-    axios
-      .get(`${env.endpoint}/albums/${this.$route.params.id}`)
-      .then((albumResponse) => {
-        console.log(albumResponse.data);
-        this.album = albumResponse.data;
-      });
+  async created() {
+    //async await
 
-    axios
-      .get(`${env.endpoint}/albums/${this.$route.params.id}/photos`)
-      .then((photoResponse) => {
-        console.log(photoResponse.data);
-        this.photos = photoResponse.data;
-      });
-  },
+    let albumResponse = await axios.get(
+      `${env.endpoint}/albums/${this.$route.params.id}`
+    );
+    this.album = albumResponse.data;
+
+    // //promesa
+    // axios
+    //   .get(`${env.endpoint}/albums/${this.$route.params.id}`)
+    //   .then(albumResponse => {
+    //     this.album = albumResponse.data;
+    //   });
+
+    //async await
+
+    let photoResponse = await axios.get(
+      `${env.endpoint}/albums/${this.$route.params.id}/photos`
+    );
+    this.photos = photoResponse.data;
+
+    // //promesa
+
+    // axios
+    //   .get(`${env.endpoint}/albums/${this.$route.params.id}/photos`)
+    //   .then(photoResponse => {
+    //     console.log(photoResponse.data);
+    //     this.photos = photoResponse.data;
+    //   });
+  }
 };
 </script>
 

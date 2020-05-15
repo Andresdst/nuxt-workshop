@@ -2,7 +2,7 @@
   <div class="column is-one-quarter">
     <div class="box">
       <h3>{{ album.title }}</h3>
-      <a class="button is-primary" href="#">Ver mas</a>
+      <nuxt-link class="button is-primary" :to="'/albums/'+album.id">Ver mas</nuxt-link>
     </div>
   </div>
 </template>
